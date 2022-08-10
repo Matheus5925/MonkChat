@@ -1,0 +1,171 @@
+.Chat-Principal{
+    background-color: rgba(88, 59, 191, 1);
+    background-size: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .logo-cima{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: .6em;
+        justify-content: flex-start;
+        padding-bottom: 1em;
+        padding-left: 3em;
+    }
+    .logo_monkChat{
+        width: 60px;
+        height: auto;
+    }
+    .logo-cima > h2{
+        color: #f0f8ff;
+        font-size: 28px;
+    }
+    .logo-cima > hr{
+        width: 2.3px;
+        background-color: rgba(218, 166, 50, 1);
+        border: none;
+        height: 40px;
+    }
+    main{
+       display: flex;
+       flex-direction: row;
+       height: 75%;
+       width: 90%;
+       border-radius: 1em;
+    }
+    
+    .lateral-menu{
+        background-color: rgba(218, 166, 50, 1);
+        border-radius: 1em 0em 0em 1em;
+        width: 28%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .inputs > label{
+        color: #f0f8ff;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+    }
+    .inputs > input {
+        border: none;
+        border-radius: 0.3em;
+        font-size: 13px;
+        width: 9em;
+    }
+    .inputs > input:focus{
+        box-shadow: 0 0 0 0;
+        border: 0 none;
+        outline: 0;
+    }
+    .inputs > select{
+        border: none;
+        border-radius: 0.3em;
+        font-size: 13px;
+        width: 9em;
+    }
+    .inputs{
+        display: flex;
+        flex-direction: row;
+        gap: 0.6em;
+        padding-top: 0.4em;
+    }
+    .criar-entrar > button{
+        color: #f0f8ff;
+        font-weight: 700;
+        border-radius: 1em;
+        border: none;
+        background-color: rgba(191, 139, 23, 1);
+        font-size: 12px;
+        width: 5em;
+        height: 1.8em;
+    }
+    .criar-entrar > button:hover{
+        cursor: pointer;
+        background-color: rgb(105, 79, 23);
+    }
+    .img-recarregar{
+        height: 20px;
+    }
+    .recarregar-div{
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        justify-content: flex-end;
+        align-items: center;
+        height: 2.5em;
+    }
+    .criar-entrar{
+        display: flex;
+        flex-direction: row;
+        padding-top: 0.5em;
+        gap: .3em;
+        justify-content: flex-end;
+    }
+    .box-mesage{
+        display: flex;
+        flex-direction: column;
+    }
+    .box-mesage > textarea{
+        width: 14em;
+        height: 6em;
+        border-radius: .3em;
+        border: none;
+    }
+    .box-mesage > label{
+        color: #f0f8ff;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        padding-bottom: 0.5em;
+    }
+    .map-message{
+        background-color: rgba(74, 74, 65, 1);
+        border-radius: 0em 1em 1em 0em;
+        width: 68%;
+        display: flex;
+        flex-direction: column;
+        padding-left: 3em;
+    }
+
+    .mensagens > p{
+        font-size: 12px;
+        color: rgb(204, 204, 204);
+
+    }
+    .mensagens{
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2em;
+        height: 100%;
+        width: 90%;
+        overflow-y: scroll  ;
+       
+    }
+    ::-webkit-scrollbar-track {
+        background-color: rgba(96, 96, 96, 1);
+        border-radius: 5em;
+        
+    }
+    ::-webkit-scrollbar {
+        width: 6px;
+        background: rgba(74, 74, 65, 1);
+        
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(203, 203, 203, 1);
+    }
+
+    .mensagens > input{
+        width: 25em;
+        border: none;
+        border-radius: 0.3em;
+        font-size: 13px;
+        margin-top: .3em;
+    }
+}

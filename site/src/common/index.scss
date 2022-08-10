@@ -1,0 +1,15 @@
+*{
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+a,a:active, a:link, a:visited{
+    text-decoration: none;
+    display: inline-block;
+}
+
+textarea:focus, select:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+} 

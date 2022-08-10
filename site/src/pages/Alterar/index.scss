@@ -1,0 +1,76 @@
+.Alterar-Principal{
+    main{
+        display: flex;
+        flex-direction: row;
+    }
+    .Logo-MonkChat-telRoxa{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        background-color: rgba(88, 59, 191, 1);
+        width: 40%;
+        height: 100vh;
+    }
+    .botão-login:hover{
+        cursor: pointer;
+        background-color: rgb(6, 51, 56);
+    }
+    .insertion-info{
+        margin-top: 5em;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .input-title{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.6em;
+    }
+    .botão-login{
+        background-color: rgba(80, 180, 191, 1);
+        width: 6em;
+        height: 2em;
+        border: none;
+        border-radius: 5em;
+        color: #ffffff;
+        font-weight: 700;
+        border-radius: 5em;
+    }
+    .inputs > input{
+        border: #000 solid 1.5px;
+        border-radius: 0.5em;
+        font-size: 12px;
+        height: 2em;
+    }
+
+    .inputs > label{
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    .inputs{
+        display: flex;
+        flex-direction: row;
+        gap: .3em;
+    }
+    .dados-usuario{
+        line-height: 1.5em;
+    }
+    .text-Registrati{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        font-size: 10px;
+        
+    }
+
+    .text-Registrati > p{
+        display: flex;
+        align-items: flex-end;
+    }
+}

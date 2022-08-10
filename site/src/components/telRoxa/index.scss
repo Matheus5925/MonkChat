@@ -1,0 +1,25 @@
+.Tela-Roxa{
+    .Logo-MonkChat-telRoxa{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        background-color: rgba(88, 59, 191, 1);
+        width: 40%;
+        height: 100vh;
+    }
+    .Cont-telRoxa > h1{
+        color: #ffffff;
+        font-size: 40px;
+    }
+    .Cont-telRoxa{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    .img-ChatMonkey{
+        height: 60px;
+        width: auto;
+    }
+}
