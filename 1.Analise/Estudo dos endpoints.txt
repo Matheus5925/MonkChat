@@ -1,0 +1,115 @@
+
+1.POST  /usuario/cadastro
+request{
+
+    "nome" = " ",
+    "email" = " ",
+    "senha" = " ",
+    "data-criacao" = " " 
+}
+response (200){
+    "id_usuario" = 1,
+    "nome" = " ",
+    "email" = " ",
+    "senha" = " ",
+    "data-criacao" = " " 
+}
+
+2.PUT dados/usuario/:id
+request{
+    "nome" = " ",
+    "email" = " ",
+    "senha" = " ",
+    "data-criacao" = " " 
+}
+response (204)
+-- sem resposta
+
+3.PUT /senha/usuario/:id
+request{
+    "nome" = "",
+    "email" = ""
+    "senha" = " "
+}
+response (204)
+-- Sem resposta
+
+4.POST  usuario/login
+request{
+    "email" = "",
+    "senha" = " "
+}
+response{
+    "id_usuario" = 0,
+    "nome" = 0,
+    "email" = 0,
+    "data-criacao" = " "
+}
+
+5.POST cadastra/sala
+request{
+    "id_usuario" = 1,
+    "nome-sala" = "" 
+}
+response (200){
+    "id_sala" = 1
+    "id_usuario" = 1,
+    "nome-sala" = "" 
+}
+
+6.POST /entrar/sala/
+request{
+    "id_usuario" = 1
+    "id_sala" = 1
+}
+response(200){
+    "id_participante" = 1
+    "id_usuario" = 1
+    "id_sala" = 1
+}
+
+7.1GET buscar/mensagem/:mensagem (query)
+request[{
+    "mensagem" = " "
+}]
+response[{
+    "mensagem" = " ",
+    "id_usuario_envio" = 1,
+    "id_usuario_para" = 1,
+    "data-mensagem" = " ",
+}]
+
+
+8.POST enviar/mensagem
+request{
+    "id_usuario_envio" = 1,
+    "id_usuario_para" = 1,
+    "id_sala" = 1,
+    "mensagem" = " ",
+    "data-mensagem" = " "
+}
+response(200){
+    "id_mensagem" = 1
+    "id_usuario_envio" = 1,
+    "id_usuario_para" = 1,
+    "id_sala" = 1,
+    "mensagem" = " ",
+    "data-mensagem" = " "
+}
+
+9.PUT edit/mensagem/:id_mensagem (params)
+request{
+    "mensagem" = " "
+}
+response (204)
+
+10.DELETE del/mensagem
+request{
+    "id_mensagem" = 1
+    "id_usuario_envio" = 1,
+    "id_usuario_para" = 1,
+    "id_sala" = 1,
+    "mensagem" = " ",
+    "data-mensagem" = " "
+}
+response(204)
