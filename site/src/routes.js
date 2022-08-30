@@ -13,7 +13,7 @@ export default function Index() {
                 <Route path='/' element={<Login/>}></Route>
                 <Route path='/cadastrar' element={<Cadastrar/>}></Route>
                 <Route path='/alterar' element={<Alterar/>}></Route>
-                <Route path='/chat' element={<Chat/>}></Route>
+                <Route path='/chat/:id_usuario' element={<Chat/>}></Route>
             </Routes>
         </BrowserRouter>
     )

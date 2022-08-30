@@ -1,24 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Cadastrar } from '../../api/acoes.js';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
 
 import TelaRoxa from '../../components/telRoxa';
 import './index.scss';
 import '../../common/index.scss';
 
 export default function Cadastro() {
-    const [nick, setNick] = useState('');
+    const [nome, setNick] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [criacao, setCriacao] = useState(Date)
+    const [criacao, setCriacao] = useState(Date);
 
-    const navigate = useNavigate() 
+
+    // useEffect(() =>{
+    //     let Today = new Date();
+    //     Today.getDate()
+    //     setCriacao(criacao);
+    //     console.log(criacao);
+    // }, []);
 
     async function sendRegistration() {
-        const resposta = await Cadastrar(nick, email, senha, criacao);
-        
-    }
+        let Today = new Date();
+        Today.getDate();
+        setCriacao(Today);
+        const resposta = await Cadastrar(nome, email, senha, criacao);
+        alert(`Serviço cadastrado com sucesso ${resposta}`);
+    };
 
+      
 
    return(
     <div className="Cadastro-Principal">
@@ -32,18 +43,19 @@ export default function Cadastro() {
 
                         <div className='inputs'>
                             <label> Nick </label>
-                            <input type="text" placeholder='Digite um Nick'></input>
+                            <input value={nome} onChange={e => setNick(e.target.value)} type="text" placeholder='Digite um Nick'></input>
                         </div>
                         <div className='inputs'>
                             <label> E-mail </label>
-                            <input type='email' placeholder='Digite seu email'></input>
+                            <input value={email} onChange={e => setEmail(e.target.value)} type='email' placeholder='Digite seu email'></input>
                         </div>
                         <div className='inputs'>
                             <label> Senha </label>
-                            <input type="password" placeholder='Crie uma senha'></input>
+                            <input value={senha} onChange={e => setSenha(e.target.value)} type="password" placeholder='Crie uma senha'></input>
                         </div>
                             
-                        <button className='botão-login'> Criar </button>
+                        <button className='botão-login' onClick={sendRegistration}> Criar </button>
+                        <input value={criacao} onChange={e => setCriacao(e.target.value)} type="date" ></input>
                     </div>
 
                     <div className='text-Registrati'>

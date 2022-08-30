@@ -11,9 +11,9 @@ export async function Entrar(email, senha) {
     return resposta.data;
 };
 
-export async function Cadastrar(nick, email, senha, criacao) {
+export async function Cadastrar(nome, email, senha, criacao) {
     const result = await api.post('/usuario/cadastro', {
-        nome: nick,
+        nome: nome,
         email: email,
         senha: senha,
         criacao: criacao
