@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Cadastrar } from '../../api/acoes.js';
-import { useNavigate } from 'react-router-dom';
 
 
 import TelaRoxa from '../../components/telRoxa';
@@ -11,7 +10,8 @@ export default function Cadastro() {
     const [nome, setNick] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [criacao, setCriacao] = useState(Date);
+    const [criacao, setCriacao] = useState('');
+    const [erro, setErro] = useState('');
 
 
     // useEffect(() =>{
@@ -22,11 +22,16 @@ export default function Cadastro() {
     // }, []);
 
     async function sendRegistration() {
-        let Today = new Date();
-        Today.getDate();
-        setCriacao(Today);
-        const resposta = await Cadastrar(nome, email, senha, criacao);
-        alert(`Serviço cadastrado com sucesso ${resposta}`);
+       try {
+            let Today = new Date();
+            Today.toISOString().slice(0, [18]);
+            setCriacao(Today);
+            console.log(criacao);
+            const resposta = await Cadastrar(nome, email, senha, criacao);
+            alert(`Serviço cadastrado com sucesso ${resposta}`);
+       } catch (err) {
+            setErro(err.response.data.erro);
+       }
     };
 
       
@@ -55,7 +60,10 @@ export default function Cadastro() {
                         </div>
                             
                         <button className='botão-login' onClick={sendRegistration}> Criar </button>
-                        <input value={criacao} onChange={e => setCriacao(e.target.value)} type="date" ></input>
+                        {/* <input value={criacao} onChange={e => setCriacao(e.target.value)} type="date" ></input> */}
+                    </div>
+                    <div className='erro'>
+                        {erro}
                     </div>
 
                     <div className='text-Registrati'>
