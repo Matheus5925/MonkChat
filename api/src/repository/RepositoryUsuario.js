@@ -19,7 +19,8 @@ export async function CadastrarUsuario(dadosUsuario) {
         const comando = `
         insert into  tb_usuario(nm_usuario, ds_email, ds_senha, dt_criacao)
 	        values(?, ?, ?, ?)`;
-        const [ resposta ] = await (await con).query(comando, [dadosUsuario.nome, dadosUsuario.email, dadosUsuario.senha, dadosUsuario.criacao]);
+        let hoje = new Date();
+        const [ resposta ] = await (await con).query(comando, [dadosUsuario.nome, dadosUsuario.email, dadosUsuario.senha, hoje]);
         dadosUsuario.id = resposta.insertId;
         return resposta[0];
 }
@@ -59,3 +60,13 @@ export async function BuscaId(id_usuario) {
         const [ resposta ] = await (await con).query(comando, [id_usuario]);
         return resposta[0];
 }
+
+export const BuscarSala = async nomeSala =>{
+        const comando = `select 
+                                id_sala as idSala,
+                                nm_sala as nome
+                        from tb_sala
+                        where nm_sala like ?`;
+        const [resposta] = await (await con).query(comando,[`${nomeSala}%`]);
+        return resposta; 
+};

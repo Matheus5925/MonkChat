@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { URL_base } from './config';
 const api = axios.create({
-    baseURL: "http://localhost:5000"
+    baseURL: URL_base
 });
 
 export async function Entrar(email, senha) {
@@ -11,13 +12,29 @@ export async function Entrar(email, senha) {
     return resposta.data;
 };
 
-export async function Cadastrar(nome, email, senha, criacao) {
+export async function Cadastrar(nome, email, senha) {
     const result = await api.post('/usuario/cadastro', {
         nome: nome,
         email: email,
-        senha: senha,
-        criacao: criacao
+        senha: senha
     });
     return result.data
 };
 
+export async function BuscarSala(nomeSala) {
+    const r = await api.get(`/buscar/salas/?nomeSala=${nomeSala}`);
+
+    return r.data;
+}
+
+export async function EntrarnaSala(id_usuario, idSala) {
+    const r = await api.post(`/entrar/sala/${id_usuario}`, {idSala: idSala});
+
+    return r.data;
+};
+
+export async function BuscarTodasMsg(idSala) {
+    const r = await api.post(`/mensages/${idSala}`);
+
+    return r.data
+};

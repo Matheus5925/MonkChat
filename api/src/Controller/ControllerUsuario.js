@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Login, CadastrarUsuario, AlterarDadosUsuario, ResetarSenha, BuscaId } from '../repository/RepositoryUsuario.js';
+import { Login, CadastrarUsuario, AlterarDadosUsuario, ResetarSenha, BuscaId, BuscarSala } from '../repository/RepositoryUsuario.js';
 
 const server = Router();
 
@@ -28,8 +28,6 @@ server.post('/usuario/cadastro', async (req, resp) =>{
             throw new Error('E-mail obrigatório!');
         if (!dadosUsuario.senha)
             throw new Error('Senha obrigatório!');
-        if (!dadosUsuario.criacao)
-            throw new Error('Data de criação obrigatória!');
 
         const resultado = await CadastrarUsuario(dadosUsuario);
         resp.send(resultado)
@@ -99,6 +97,19 @@ server.get('/usuario/busca/:id_usuario', async (req, resp) =>{
             throw new Error('Id não informado, informe para continuarmos mexendo no site!');
 
         resp.send(result);
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })       
+    }
+});
+
+server.get('/buscar/salas/', async (req, resp)=>{
+    try {
+        const {nomeSala} = req.query;
+
+        const r = await BuscarSala(nomeSala);
+        resp.send(r);
     } catch (err) {
         resp.status(400).send({
             erro: err.message

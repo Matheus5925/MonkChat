@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { AlterarMensagem, BuscarMensagem, CadastrarSala, DeletarMensagem, EntrarSala, EnviarMensagem } from "../repository/RepositoryAcoes.js";
+import { AlterarMensagem, BuscarMensagem, BuscarTodasMsg, CadastrarSala, DeletarMensagem, EntrarSala, EnviarMensagem } from "../repository/RepositoryAcoes.js";
 
 const server = Router();
 
@@ -8,7 +8,7 @@ server.post('/cadastra/sala/:idusuario', async (req, resp) =>{
         const { idusuario } = req.params;
         const dados = req.body;
 
-        if(!dados.nm_sala)
+        if(!dados.nomeSala)
             throw new Error('Nome da sala obrigátorio!');
         if (!idusuario) 
             throw new Error('Não pode cadastrar uma sala sem estar logado');
@@ -25,10 +25,10 @@ server.post('/cadastra/sala/:idusuario', async (req, resp) =>{
 
 server.post('/entrar/sala/:id_usuario', async (req, resp) =>{
     try {
-        const {id_usuario} = req.params;
+        const { id_usuario } = req.params;
         const ids = req.body;
     
-        if(!ids.id_sala)
+        if(!ids.idSala)
             throw new Error('Nome da sala obrigátorio!');
         if (!id_usuario) 
             throw new Error('Não pode cadastrar uma sala sem estar logado');
@@ -98,6 +98,20 @@ server.delete('/del/mensagem/:id_mensagem', async (req, resp) =>{
         resp.send(result);
         
     } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+});
+
+
+server.get('/mensages/:idSala', async (req, resp)=>{
+    try{
+        const {idSala} = req.params;
+        const r = await BuscarTodasMsg(idSala);
+
+        resp.send(r);
+    }catch (err) {
         resp.status(400).send({
             erro: err.message
         })

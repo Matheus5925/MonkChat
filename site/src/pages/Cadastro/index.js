@@ -1,34 +1,29 @@
 import { useState } from 'react';
 import { Cadastrar } from '../../api/acoes.js';
+import { useNavigate} from 'react-router-dom'
 
 
 import TelaRoxa from '../../components/telRoxa';
 import './index.scss';
 import '../../common/index.scss';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Cadastro() {
     const [nome, setNick] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [criacao, setCriacao] = useState('');
     const [erro, setErro] = useState('');
 
 
-    // useEffect(() =>{
-    //     let Today = new Date();
-    //     Today.getDate()
-    //     setCriacao(criacao);
-    //     console.log(criacao);
-    // }, []);
+    const navigate = useNavigate()
 
     async function sendRegistration() {
        try {
-            let Today = new Date();
-            Today.toISOString().slice(0, [18]);
-            setCriacao(Today);
-            console.log(criacao);
-            const resposta = await Cadastrar(nome, email, senha, criacao);
-            alert(`Serviço cadastrado com sucesso ${resposta}`);
+            const resposta = await Cadastrar(nome, email, senha);
+            toast(`Serviço cadastrado com sucesso ${resposta}`);
+            setTimeout(()=>{
+                navigate('/');
+            }, 2000)
        } catch (err) {
             setErro(err.response.data.erro);
        }
@@ -39,6 +34,7 @@ export default function Cadastro() {
    return(
     <div className="Cadastro-Principal">
         <main>
+                <ToastContainer/>
                 <section className="Logo-MonkChat-telRoxa">
                    <TelaRoxa/>
                 </section>
@@ -67,7 +63,7 @@ export default function Cadastro() {
                     </div>
 
                     <div className='text-Registrati'>
-                        <p>Já possui uma conta?<br/> Faça seu login clicando em <a href="/cadastrar"> aqui</a></p>
+                        <p>Já possui uma conta?<br/> Faça seu login clicando em <a href="/"> aqui</a></p>
                     </div>
                 </section>
          </main>

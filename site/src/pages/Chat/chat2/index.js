@@ -1,15 +1,15 @@
 import './index.scss'
-import '../../common/index.scss'
-import LogoMonkChat from '../../assets/imgs/logo1.svg';
-import recarregar from '../../assets/imgs/carregar.png';
+import '../../../common/index.scss'
+import LogoMonkChat from '../../../assets/imgs/logo1.svg';
+import recarregar from '../../../assets/imgs/carregar.png';
 import { useEffect, useState } from 'react';
-import { CadastrarSala } from '../../api/services';
+import { CadastrarSala } from '../../../api/services';
 import Storage from 'local-storage';
 import { toast, ToastContainer } from 'react-toastify';
-import { BuscarSala, BuscarTodasMsg, EntrarnaSala } from '../../api/acoes';
+import { BuscarSala, BuscarTodasMsg, EntrarnaSala } from '../../../api/acoes';
 
 
-export default function Chat() {
+export default function Chat2() {
     const [nomeSala, setNomeSala] = useState('');
     const [salas, setSalas] = useState([]);
     const [renderSalas, setRenderSalas] = useState(false);
@@ -97,7 +97,7 @@ export default function Chat() {
                         </div>}
                         <div className="inputs">
                             <label>Nick: </label>
-                            <input value={desestruturarStorage.nome} type='text' placeholder='Seu Nick'></input>
+                            <input type='text' placeholder='Seu Nick'></input>
                         </div>
                         <div className="inputs">
                             <label>Para:</label>

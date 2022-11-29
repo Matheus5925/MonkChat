@@ -1,6 +1,6 @@
 import { Entrar } from '../../api/acoes.js';
 import { useEffect, useState} from 'react';
-import storage from 'local-storage';
+import storage, { remove } from 'local-storage';
 import { useNavigate} from 'react-router-dom'
 
 
@@ -19,21 +19,22 @@ export default function Login() {
         if (storage('usuario-logado')) {
             Navigate('/')
         }
-    }, [])
+    }, []);
 
     async function ClickEntrar() {
         try {
             const result = await Entrar(email, senha);
             storage('usuario-logado', result);
 
-            Navigate('/chat')
+            const Usuario = storage('usuario-logado')
+
+            Navigate(`/chat/${Usuario.id}`)
 
         } catch (err) {
             if (err.response.status = 401) {
                 setErro(err.response.data.erro)
             }
         }
-
     }
     return(
 
