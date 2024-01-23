@@ -1,1 +1,0 @@
-console.log(process.cwd(`C:\Users\wafamily\Desktop\MATHEUS\ProjetosMatheus\MonkChat\api>`));

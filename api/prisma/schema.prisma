@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(300)
+  email String @db.VarChar(300)
+  password String @db.VarChar(300)
+  createdAt DateTime @db.DateTime()
+  updateAt DateTime @db.DateTime()
+  rooms Room[] @relation("ownerRoom")
+  sentMessages Messages[] @relation("SentMessages")
+  receivedMessages Messages[] @relation("ReceivedMessages")
+  userInRoom Participant[] @relation("userInRoom")
+}
+
+model Room {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(200)
+  owner User @relation("ownerRoom",fields: [ownerID], references: [id])
+  ownerID Int
+  messages Messages[] @relation("messagesRoom")
+  roomParticipant  Participant[] @relation("roomParticipant")
+}
+
+model Messages {
+  id Int @id @default(autoincrement())
+  message String @db.VarChar(3000)
+  sentBy      User     @relation("SentMessages", fields: [sentById], references: [id])
+  sentById    Int
+  receivedBy  User     @relation("ReceivedMessages", fields: [receivedById], references: [id])
+  receivedById Int
+  roomTheMessage  Room @relation("messagesRoom", fields: [RoomTheMessageID], references: [id])
+  RoomTheMessageID Int
+}
+
+model Participant{
+  id Int @id @default(autoincrement())
+  user User @relation("userInRoom", fields: [userID], references: [id])
+  userID Int
+  room Room @relation("roomParticipant", fields: [roomID], references: [id])
+  roomID Int
+}
