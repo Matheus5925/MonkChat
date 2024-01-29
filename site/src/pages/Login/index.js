@@ -1,4 +1,3 @@
-import { Entrar } from '../../api/acoes.js';
 import { useEffect, useState} from 'react';
 import storage, { remove } from 'local-storage';
 import { useNavigate} from 'react-router-dom'
@@ -7,6 +6,7 @@ import { useNavigate} from 'react-router-dom'
 import TelaRoxa from '../../components/telRoxa/index.js'
 import './index.scss';
 import '../../common/index.scss'
+import ActionsUser from '../../api/UserActions.js';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ export default function Login() {
 
     async function ClickEntrar() {
         try {
-            const result = await Entrar(email, senha);
+            const result = await ActionsUser.Login(email, senha);
             storage('usuario-logado', result);
 
             const Usuario = storage('usuario-logado')

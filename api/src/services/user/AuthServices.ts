@@ -12,7 +12,7 @@ dotenv.config();
 export default class AuthServices{
     private readonly userDB: UserRepository = new UserRepository()
 
-    async Login({email, password}: Login): Promise<object>{
+    public async Login({email, password}: Login): Promise<object>{
         
         if(!email || !password){
             throw LoginError.credentialsNotInformed();

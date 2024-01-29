@@ -1,10 +1,10 @@
 import ConnectionDB from "./ConnectionPrismaDB";
 import { UserInternal, changedPassword } from "../../interface/UserInterface";
-import { User } from "@prisma/client";
+import { User, Participant } from "@prisma/client";
 
 export default class UserRepository extends ConnectionDB{
 
-    async createAccount(newUser: UserInternal): Promise<User>{
+    public async createAccount(newUser: UserInternal): Promise<User>{
         newUser.updateAt = new Date();
         newUser.createdAt = new Date();
         const user = await this.clientDB.user.create({data:{
@@ -14,23 +14,23 @@ export default class UserRepository extends ConnectionDB{
         return user;
     }
 
-    async getAllUsers(page: number, limit: number): Promise<UserInternal[]>{
+    public async getAllUsers(page: number, limit: number): Promise<UserInternal[]>{
         return await this.clientDB.user.findMany({
             skip: (page - 1) * limit,
             take: limit
         })
     }
 
-    async getUserToId(id: number): Promise<UserInternal | null>{
+    public async getUserToId(userID: number): Promise<UserInternal | null>{
         const user = await this.clientDB.user.findUnique({
             where: {
-                id: id
+                id: userID
             }
         });
         return user;
     }
 
-    async changeInfoUser(newInforUser: UserInternal): Promise<object>{
+    public async changeInfoUser(newInforUser: UserInternal): Promise<object>{
         newInforUser.updateAt = new Date()
         const userChanged = await this.clientDB.user.update({data:{
             ...newInforUser
@@ -42,7 +42,7 @@ export default class UserRepository extends ConnectionDB{
         return userChanged;
     }
 
-    async getInfoForEmail(email: string): Promise<UserInternal>{
+    public async getInfoForEmail(email: string): Promise<UserInternal>{
         const inforUser = await this.clientDB.user.findMany({
             where: {
                 email: {
@@ -62,7 +62,7 @@ export default class UserRepository extends ConnectionDB{
         return inforUser[0]
     }
 
-    async changePassword(changedPassword: changedPassword){
+    public async changePassword(changedPassword: changedPassword){
         const userChangedPassword = await this.clientDB.user.updateMany({
             data:{
                 password: changedPassword.newPassword
@@ -74,6 +74,22 @@ export default class UserRepository extends ConnectionDB{
             }
         });
 
-        return userChangedPassword
+        return userChangedPassword;
     }
+
+    public async userIsParticipant(roomID: number,userID: number){
+        const user = await this.clientDB.participant.findFirst({
+            where:{
+                roomID: {
+                    equals: roomID
+                },
+                userID:{
+                    equals: userID
+                }
+            }
+        })
+
+        return user;
+    }
+
 };

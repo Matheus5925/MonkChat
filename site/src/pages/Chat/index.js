@@ -3,10 +3,13 @@ import '../../common/index.scss'
 import LogoMonkChat from '../../assets/imgs/logo1.svg';
 import recarregar from '../../assets/imgs/carregar.png';
 import { useEffect, useState } from 'react';
-import { CadastrarSala } from '../../api/services';
 import Storage from 'local-storage';
 import { toast, ToastContainer } from 'react-toastify';
-import { BuscarSala, BuscarTodasMsg, EntrarnaSala } from '../../api/acoes';
+import APIMessage from '../../api/APIMessage';
+import ActionsUser from '../../api/UserActions';
+
+const baseUrl = "http://localhost:3000/message";
+const client = io(baseUrl);
 
 
 export default function Chat() {
@@ -17,6 +20,10 @@ export default function Chat() {
 
     let DadosStorage = Storage('usuario-logado');
 
+    // useEffect(()=>{
+    //     client.on('resp_message', )
+    // },[])
+
     let desestruturarStorage = {
         id: DadosStorage.id,
         nome: DadosStorage.nome,
@@ -24,9 +31,9 @@ export default function Chat() {
         tudo: DadosStorage
     }
 
-    const CarregarSala = async idSala =>{
+    const CarregarSala = async roomID =>{
         try {
-            const r = await BuscarTodasMsg(idSala);
+            const r = await APIMessage.getAllMessagesOfARoom(roomID);
             setMensagens(r);
             
         } catch (err) {
@@ -37,7 +44,7 @@ export default function Chat() {
     const InserirSala = async _ =>{
        try {
             console.log(nomeSala);
-            const r = await CadastrarSala(desestruturarStorage.id, nomeSala);
+            const r = await ActionsUser.createRoom(desestruturarStorage.id, nomeSala);
             toast.dark('Sala Cadastrada com sucesso');
        } catch (err) {
             toast.error(err.response.data.erro)
@@ -47,7 +54,7 @@ export default function Chat() {
     const BuscarSalasExistentes = async _ =>{
         try {
             if(nomeSala){
-                const r = await BuscarSala(nomeSala);
+                const r = await ActionsUser.getRoomToName(nomeSala);
                 setSalas(r);
                 setRenderSalas(true);
             }else{

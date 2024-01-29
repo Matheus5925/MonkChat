@@ -6,7 +6,7 @@ const authServices: AuthServices = new AuthServices();
 
 
 export default class AuthControllers{
-    static async Login(req: Request, resp: Response){
+    public static async Login(req: Request, resp: Response){
         try {
             const {email, password} = req.body;
             

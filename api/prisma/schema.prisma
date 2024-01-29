@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -19,7 +20,6 @@ model User {
   updateAt DateTime @db.DateTime()
   rooms Room[] @relation("ownerRoom")
   sentMessages Messages[] @relation("SentMessages")
-  receivedMessages Messages[] @relation("ReceivedMessages")
   userInRoom Participant[] @relation("userInRoom")
 }
 
@@ -37,10 +37,10 @@ model Messages {
   message String @db.VarChar(3000)
   sentBy      User     @relation("SentMessages", fields: [sentById], references: [id])
   sentById    Int
-  receivedBy  User     @relation("ReceivedMessages", fields: [receivedById], references: [id])
-  receivedById Int
   roomTheMessage  Room @relation("messagesRoom", fields: [RoomTheMessageID], references: [id])
   RoomTheMessageID Int
+  createdAt DateTime @db.DateTime()
+  updateAt DateTime @db.DateTime()
 }
 
 model Participant{

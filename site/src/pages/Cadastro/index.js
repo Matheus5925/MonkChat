@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Cadastrar } from '../../api/acoes.js';
+import ActionsUser from '../../api/UserActions';
 import { useNavigate} from 'react-router-dom'
 
 
@@ -9,9 +9,9 @@ import '../../common/index.scss';
 import { toast, ToastContainer } from 'react-toastify';
 
 export default function Cadastro() {
-    const [nome, setNick] = useState('');
+    const [name, setNick] = useState('');
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setPassword] = useState('');
     const [erro, setErro] = useState('');
 
 
@@ -19,7 +19,12 @@ export default function Cadastro() {
 
     async function sendRegistration() {
        try {
-            const resposta = await Cadastrar(nome, email, senha);
+            const resposta = await ActionsUser.createAccount({
+                name: name,
+                email: email,
+                password: password,
+
+            });
             toast(`Serviço cadastrado com sucesso ${resposta}`);
             setTimeout(()=>{
                 navigate('/');
@@ -44,15 +49,15 @@ export default function Cadastro() {
 
                         <div className='inputs'>
                             <label> Nick </label>
-                            <input value={nome} onChange={e => setNick(e.target.value)} type="text" placeholder='Digite um Nick'></input>
+                            <input value={name} onChange={e => setNick(e.target.value)} type="text" placeholder='Digite um Nick'></input>
                         </div>
                         <div className='inputs'>
                             <label> E-mail </label>
                             <input value={email} onChange={e => setEmail(e.target.value)} type='email' placeholder='Digite seu email'></input>
                         </div>
                         <div className='inputs'>
-                            <label> Senha </label>
-                            <input value={senha} onChange={e => setSenha(e.target.value)} type="password" placeholder='Crie uma senha'></input>
+                            <label> password </label>
+                            <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder='Crie uma senha'></input>
                         </div>
                             
                         <button className='botão-login' onClick={sendRegistration}> Criar </button>

@@ -1,4 +1,4 @@
-import { UserInternal } from "../../interface/UserInterface";
+import { UserInternal, changedPassword } from "../../interface/UserInterface";
 import UserRepository from "../../repository/database/UserRepository";
 import { hashPassword } from "../../utils/hash";
 import UserException from "../../Errors/UserException";
@@ -6,7 +6,7 @@ import UserException from "../../Errors/UserException";
 export default class UserServices{
     private readonly repoUser: UserRepository = new UserRepository();
     
-    async createUser(newUser: UserInternal): Promise<UserInternal | undefined>{
+    public async createUser(newUser: UserInternal): Promise<UserInternal | undefined>{
         const userExists = await this.repoUser.getInfoForEmail(newUser.email);
 
         if(userExists){
@@ -19,7 +19,7 @@ export default class UserServices{
         return user;
     }
 
-    async changeDatas(user: UserInternal){
+    public async changeDatas(user: UserInternal){
         if(!user.id)
             throw UserException.UserCannotBeChanged("User id was not provided");
 
@@ -31,7 +31,13 @@ export default class UserServices{
         return userInfo;
     }
 
-    async getAllUsers(page: number, limit: number): Promise<UserInternal[]>{
+    public async getAllUsers(page: number, limit: number): Promise<UserInternal[]>{
         return await this.repoUser.getAllUsers(page, limit);
     }
+
+    public async changedPassword(userInfo: changedPassword){
+        const user = await this.repoUser.changePassword(userInfo);
+        return user;
+    }
+
 };

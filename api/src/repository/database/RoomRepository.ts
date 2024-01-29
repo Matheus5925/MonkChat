@@ -5,7 +5,7 @@ import { RoomInternal } from "../../interface/RoomInterface";
 
 export default class RoomRepository extends ConnectionDB{
 
-    async createRoom(newRoom: Room): Promise<Room>{
+    public async createRoom(newRoom: Room): Promise<Room>{
         const room = await this.clientDB.room.create({data:{
             ...newRoom
         }});
@@ -13,15 +13,37 @@ export default class RoomRepository extends ConnectionDB{
         return room;
     }
 
-    async entryInARoom(newParticipant: Participant){
+    public async entryInARoom(newParticipant: Participant): Promise<object>{
         const participant = await this.clientDB.participant.create({data:{
             ...newParticipant
         }});
 
-        return participant;
+        const participantReturn = await this.clientDB.participant.findMany({
+            where:{
+                id: {
+                    equals: participant.id
+                }
+            },
+            select:{
+                room: {
+                    select:{
+                        id: true,
+                        name: true
+                    }
+                },
+                user: {
+                   select:{
+                    id: true,
+                    name: true
+                   }
+                }
+            }
+        })
+
+        return participantReturn[0];
     }
 
-    async getRoomToName(name: string): Promise<Room>{
+    public async getRoomToName(name: string): Promise<Room>{
         const room = await this.clientDB.room.findMany({
            where: {
             name: {
@@ -35,6 +57,23 @@ export default class RoomRepository extends ConnectionDB{
            }
         })
 
+        return room[0]
+    }
+
+    public async getRoomToId(roomID: number): Promise<Room>{
+        const room = await this.clientDB.room.findMany({
+            where: {
+             id: {
+                equals: roomID
+             }
+            },
+            select:{
+             id: true,
+             name: true,
+             ownerID: true
+            }
+        })
+ 
         return room[0]
     }
 }

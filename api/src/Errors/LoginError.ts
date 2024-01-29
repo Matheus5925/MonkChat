@@ -4,7 +4,7 @@ import BaseError from "./BaseError";
 
 export default class LoginError extends BaseError{
     constructor(message?:string, status?: number){
-        super("LoginError", message, status)
+        super("LoginExceptions", message, status)
     }
 
     public static credentialsInvalids(){

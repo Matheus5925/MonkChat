@@ -16,4 +16,8 @@ export default class RoomException extends BaseError{
         }
     }
 
+    public static async RoomNotFound(){
+        return new RoomException("Room not registered on base", 404)
+    }
+
 }
